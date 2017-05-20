@@ -34,6 +34,9 @@ class ViewController: UIViewController {
         //重力をつける
         let gravityBehavior = UIGravityBehavior(items: [targetView])
 
+        //重力がかかる方向
+        gravityBehavior.gravityDirection = CGVector(dx: 0, dy: 1)
+
         //衝突をつける
         let collisionBehavior = UICollisionBehavior(items: [targetView])
         collisionBehavior.translatesReferenceBoundsIntoBoundary = true
