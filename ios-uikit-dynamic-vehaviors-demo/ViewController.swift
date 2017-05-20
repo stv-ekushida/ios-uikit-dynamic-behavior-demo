@@ -43,6 +43,7 @@ class ViewController: UIViewController {
         //衝突をつける
         let collisionBehavior = UICollisionBehavior(items: [targetView, borderView])
         collisionBehavior.translatesReferenceBoundsIntoBoundary = true
+        collisionBehavior.collisionDelegate = self
 
         //境界線を作る
         let toPoint = CGPoint(x: borderView.frame.origin.x + borderView.frame.size.width,
@@ -67,6 +68,17 @@ extension ViewController: UIDynamicAnimatorDelegate {
 
     // アニメーション終了時に呼ばれる
     func dynamicAnimatorWillResume(_ animator: UIDynamicAnimator) {
+        print(#function)
+    }
+}
+
+extension ViewController: UICollisionBehaviorDelegate {
+
+    /// 衝突判定
+    func collisionBehavior(_ behavior: UICollisionBehavior,
+                           beganContactFor item: UIDynamicItem,
+                           withBoundaryIdentifier identifier: NSCopying?,
+                           at p: CGPoint) {
         print(#function)
     }
 }
