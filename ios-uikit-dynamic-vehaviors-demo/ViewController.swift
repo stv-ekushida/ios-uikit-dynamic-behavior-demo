@@ -27,8 +27,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //アニメーター
+        //アニメーションの土台
         animator = UIDynamicAnimator(referenceView: self.view)
+        animator?.delegate = self
 
         //重力をつける
         let gravityBehavior = UIGravityBehavior(items: [targetView])
@@ -37,8 +38,22 @@ class ViewController: UIViewController {
         let collisionBehavior = UICollisionBehavior(items: [targetView])
         collisionBehavior.translatesReferenceBoundsIntoBoundary = true
 
+        //振る舞い（ビヘイビア）を追加する
         animator?.addBehavior(gravityBehavior)
         animator?.addBehavior(collisionBehavior)
+    }
+}
+
+extension ViewController: UIDynamicAnimatorDelegate {
+
+    // アニメーション開始時に呼ばれる
+    func dynamicAnimatorDidPause(_ animator: UIDynamicAnimator) {
+        print(#function)
+    }
+
+    // アニメーション終了時に呼ばれる
+    func dynamicAnimatorWillResume(_ animator: UIDynamicAnimator) {
+        print(#function)
     }
 }
 
