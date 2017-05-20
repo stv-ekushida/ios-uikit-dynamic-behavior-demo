@@ -11,6 +11,9 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var targetView: UIView!
+    @IBOutlet weak var borderView: UIView!
+
+
     var animator: UIDynamicAnimator?
 
     //関連クラス
@@ -38,8 +41,16 @@ class ViewController: UIViewController {
         gravityBehavior.gravityDirection = CGVector(dx: 0, dy: 1)
 
         //衝突をつける
-        let collisionBehavior = UICollisionBehavior(items: [targetView])
+        let collisionBehavior = UICollisionBehavior(items: [targetView, borderView])
         collisionBehavior.translatesReferenceBoundsIntoBoundary = true
+
+        //境界線を作る
+        let toPoint = CGPoint(x: borderView.frame.origin.x + borderView.frame.size.width,
+                              y: borderView.frame.origin.y)
+
+        collisionBehavior.addBoundary(withIdentifier: "borderView" as NSCopying,
+                                      from: borderView.frame.origin,
+                                      to: toPoint)
 
         //振る舞い（ビヘイビア）を追加する
         animator?.addBehavior(gravityBehavior)
